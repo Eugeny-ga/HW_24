@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Dict
 
 from flask import Blueprint, request, jsonify, Response
 from marshmallow import ValidationError
@@ -12,7 +12,7 @@ main_bp = Blueprint("main", __name__)
 @main_bp.route("/perform_query", methods=["POST"])
 def perform_query() -> Response | tuple[Response, int]:
 
-    data: dict[str, Union[str, dict]] = request.json
+    data: dict = request.json
 
     try:
         RequestSchema().load(data)
