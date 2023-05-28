@@ -9,21 +9,21 @@ def map_query(value: str, data: Iterable[str])-> Iterator[str]:
     column_num = int(value)
     return map(lambda x: x.split()[column_num], data)
 
-def unique_query(data: Iterable[str]) -> set:
+def unique_query(data: Iterable[str]) -> set[str]:
     return set(data)
 
 
-def sort_query(value: str, data: Iterable[str]) -> list:
+def sort_query(value: str, data: Iterable[str]) -> list[str]:
     reverse = value == "desc"
     return sorted(data, reverse=reverse)
 
 
-def limit_query(value: str, data: Iterable[str]) -> list:
-    limit=int(value)
+def limit_query(value: str, data: Iterable[str]) -> list[str]:
+    limit = int(value)
     return list(data)[:limit]
 
 
 def regex_query(value: str, data: Iterable[str]) -> Iterator[str]:
-    regex = re.compile(value)
+    regex: re.Pattern = re.compile(value)
     return filter(lambda x: re.search(regex, x), data)
 

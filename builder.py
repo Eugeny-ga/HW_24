@@ -1,4 +1,4 @@
-from typing import Dict, List, Callable, Generator
+from typing import Dict, List, Callable, Generator, Optional, Iterable
 
 from functions import filter_query, map_query, unique_query, sort_query, limit_query, regex_query
 
@@ -21,7 +21,7 @@ def read_file(file_name: str) -> Generator:
 
 
 
-def build_query(cmd: str, value: str, file_name: str, data: Dict[str, str]) -> List[str]:
+def build_query(cmd: str, value: str, file_name: str, data: Optional[Iterable[str]]) -> List[str]:
     if data is None:
         prepared_data = read_file(file_name)
     else:
