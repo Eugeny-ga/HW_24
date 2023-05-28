@@ -1,4 +1,6 @@
-from flask import Blueprint, request, jsonify
+from typing import Union
+
+from flask import Blueprint, request, jsonify, Response
 from marshmallow import ValidationError
 
 from builder import build_query
@@ -7,18 +9,15 @@ from models import RequestSchema
 main_bp = Blueprint("main", __name__)
 
 
-
 @main_bp.route("/perform_query", methods=["POST"])
-def perform_query():
-    data = request.json
+def perform_query() -> Response | tuple[Response, int]:
 
-
+    data: dict[str, Union[str, dict]] = request.json
 
     try:
         RequestSchema().load(data)
     except ValidationError as error:
         return jsonify(error.messages), 400
-
 
 
     first_result = build_query(
