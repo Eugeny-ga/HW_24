@@ -23,11 +23,11 @@ def read_file(file_name: str) -> Generator:
 
 def build_query(cmd: str, value: str, file_name: str, data: Optional[Iterable[str]]) -> List[str]:
     if data is None:
-        prepared_data = read_file(file_name)
+        prepared_data: Iterable[str] = read_file(file_name)
     else:
         prepared_data = data
 
-    function = cmd_to_functions[cmd]
+    function: Callable = cmd_to_functions[cmd]
     return list(function(value=value, data=prepared_data))
 
 
